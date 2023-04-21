@@ -122,7 +122,7 @@ const AllUsers = () => {
                       {user.email}
                     </Typography>
                     <Typography variant="p" component="p">
-                      Role: {user.isAdmin ? "Admin" : "Subscriber"}
+                      Role: {user.role}
                     </Typography>
 
                     <Box

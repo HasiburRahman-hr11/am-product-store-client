@@ -21,6 +21,8 @@ import AllUsers from "./admin/AllUsers";
 import EditUser from "./admin/EditUser";
 import AddUser from "./admin/AddUser";
 import AllProducts from "./admin/AllProducts";
+import Profile from "./pages/Profile";
+import EditProfile from "./pages/EditProfile";
 
 const App = () => {
   const { user } = useContext(UserContext);
@@ -58,20 +60,49 @@ const App = () => {
         />
         <Route exact path="/products" element={<Products />} />
         <Route exact path="/products/:productId" element={<SingleProduct />} />
+
+        <Route
+          exact
+          path="/profile/:userId"
+          element={!user?._id ? <Navigate to="/" /> : <Profile />}
+        />
+        <Route
+          exact
+          path="/profile/edit-profile/:userId"
+          element={!user?._id ? <Navigate to="/" /> : <EditProfile />}
+        />
         <Route
           exact
           path="/admin/add-product"
-          element={(user?.role === 'administrator' || user?.isAdmin) ? <AddProduct /> : <Navigate to="/signin" />}
+          element={
+            user?.role === "administrator" || user?.isAdmin ? (
+              <AddProduct />
+            ) : (
+              <Navigate to="/signin" />
+            )
+          }
         />
         <Route
           exact
           path="/admin/product/edit-product/:productId"
-          element={(user?.role === 'administrator' || user?.isAdmin) ? <EditProduct /> : <Navigate to="/signin" />}
+          element={
+            user?.role === "administrator" || user?.isAdmin ? (
+              <EditProduct />
+            ) : (
+              <Navigate to="/signin" />
+            )
+          }
         />
         <Route
           exact
           path="/admin/product/all-products"
-          element={(user?.role === 'administrator' || user?.isAdmin) ? <AllProducts /> : <Navigate to="/signin" />}
+          element={
+            user?.role === "administrator" || user?.isAdmin ? (
+              <AllProducts />
+            ) : (
+              <Navigate to="/signin" />
+            )
+          }
         />
         <Route
           exact

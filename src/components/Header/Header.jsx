@@ -184,7 +184,7 @@ function Header() {
                 onClose={handleCloseUserMenu}
               >
                 <MenuItem onClick={handleCloseUserMenu}>
-                  <Link to="/" style={linkStyle}>
+                  <Link to={`/profile/${user._id}`} style={linkStyle}>
                     <Typography textAlign="center">Profile</Typography>
                   </Link>
                 </MenuItem>
