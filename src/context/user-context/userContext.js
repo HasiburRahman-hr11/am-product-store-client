@@ -3,8 +3,8 @@ import userReducer from "./userReducer";
 
 const getUser = () => {
   if (typeof window !== "undefined") {
-    if (localStorage.getItem("am-stor-user")) {
-      return JSON.parse(localStorage.getItem("am-stor-user"));
+    if (localStorage.getItem("am-store-user")) {
+      return JSON.parse(localStorage.getItem("am-store-user"));
     } else {
       return {};
     }

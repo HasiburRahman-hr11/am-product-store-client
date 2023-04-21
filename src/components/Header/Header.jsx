@@ -13,16 +13,19 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../context/user-context/userContext";
+import { logoutSuccess } from "../../context/user-context/userAction";
 
 const linkStyle = {
   color: "inherit",
   textDecoration: "none",
 };
 
-
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const { user, dispatch } = React.useContext(UserContext);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -37,6 +40,10 @@ function Header() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+  const handleLogout = async () => {
+    localStorage.removeItem("am-store-user");
+    dispatch(logoutSuccess());
   };
 
   return (
@@ -150,41 +157,95 @@ function Header() {
             </Button>
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Admin" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              <MenuItem  onClick={handleCloseUserMenu}>
-                <Link to="/" style={linkStyle}>
-                  <Typography textAlign="center">Profile</Typography>
-                </Link>
-              </MenuItem>
+          {user?.email && (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar
+                    alt={user?.firstName ? user.firstName : "Admin"}
+                    src="/static/images/avatar/2.jpg"
+                  />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Link to="/" style={linkStyle}>
+                    <Typography textAlign="center">Profile</Typography>
+                  </Link>
+                </MenuItem>
 
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Link to="/admin/add-product" style={linkStyle}>
-                  <Typography textAlign="center">Add Product</Typography>
-                </Link>
-              </MenuItem>
-            </Menu>
-          </Box>
+                {(user?.isAdmin || user?.role === "administrator") && (
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Link to="/admin/add-product" style={linkStyle}>
+                      <Typography textAlign="center">Add Product</Typography>
+                    </Link>
+                  </MenuItem>
+                )}
+                {(user?.isAdmin || user?.role === "administrator") && (
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Link to="/admin/product/all-products" style={linkStyle}>
+                      <Typography textAlign="center">All Products</Typography>
+                    </Link>
+                  </MenuItem>
+                )}
+                {user?.isAdmin && (
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Link to="/admin/all-users" style={linkStyle}>
+                      <Typography textAlign="center">All Users</Typography>
+                    </Link>
+                  </MenuItem>
+                )}
+                {user?.isAdmin && (
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Link to="/admin/add-user" style={linkStyle}>
+                      <Typography textAlign="center">Add User</Typography>
+                    </Link>
+                  </MenuItem>
+                )}
+
+                <MenuItem
+                  onClick={() => {
+                    handleCloseUserMenu();
+                    handleLogout();
+                  }}
+                >
+                  <Typography textAlign="center">Logout</Typography>
+                </MenuItem>
+              </Menu>
+            </Box>
+          )}
+
+          {!user?.email && (
+            <Link to="/signin">
+              <Button
+                sx={{
+                  backgroundColor: "#fff",
+                  color: "#333",
+                  padding: "6px 10px",
+                  "&:hover": {
+                    backgroundColor: "#fff",
+                  },
+                }}
+              >
+                Login
+              </Button>
+            </Link>
+          )}
         </Toolbar>
       </Container>
     </AppBar>

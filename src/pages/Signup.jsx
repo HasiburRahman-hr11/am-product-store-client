@@ -5,10 +5,19 @@ import {
   TextField,
   Button,
   CircularProgress,
+  FormControl,
+  IconButton,
+  OutlinedInput,
+  InputLabel,
+  InputAdornment,
 } from "@mui/material";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Header from "../components/Header/Header";
+import { UserContext } from "../context/user-context/userContext";
+import { errorNotify, successNotify } from "../utils/toastify";
 
 const textFieldStyle = {
   width: "100%",
@@ -24,6 +33,15 @@ const Signup = () => {
 
   const navigate = useNavigate();
 
+  const { user } = useContext(UserContext);
+
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   const handleSubmit = async () => {
     if (!firstName || !lastName || !email || !password) {
       return alert("Please fill up the form correctly");
@@ -37,8 +55,30 @@ const Signup = () => {
       email: email,
       password: password,
     };
-    console.log(userData);
+    setLoading(true);
+
+    try {
+      const { data } = await axios.post(
+        "http://localhost:8080/user/add-user",
+        userData
+      );
+      if (data?.email) {
+        console.log(data);
+        setLoading(false);
+        navigate("/signin");
+        successNotify('Signup Successfull');
+      } else {
+        errorNotify('Internal server error!');
+      }
+    } catch (error) {
+      errorNotify(error?.response?.data?.message || 'Somthing went wrong!');
+      setLoading(false);
+    }
   };
+
+  if (user?.email) {
+    navigate("/");
+  }
 
   return (
     <>
@@ -51,7 +91,7 @@ const Signup = () => {
           justifyContent: "center",
           background: "#f5f5f5",
           minHeight: "100vh",
-          paddingTop:'30px'
+          paddingTop: "30px",
         }}
       >
         <Box
@@ -62,7 +102,7 @@ const Signup = () => {
             padding: "30px 30px",
             borderRadius: "10px",
             margin: "0 auto",
-            boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px'
+            boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
           }}
         >
           <Typography
@@ -81,7 +121,7 @@ const Signup = () => {
             sx={textFieldStyle}
             id="firstName"
             label="First Name"
-            variant="standard"
+            variant="outlined"
             autoComplete="false"
             required
             value={firstName}
@@ -90,8 +130,8 @@ const Signup = () => {
           <TextField
             sx={textFieldStyle}
             id="lastName"
-            label="First Name"
-            variant="standard"
+            label="Last Name"
+            variant="outlined"
             autoComplete="false"
             required
             value={lastName}
@@ -101,23 +141,37 @@ const Signup = () => {
             sx={textFieldStyle}
             id="email"
             label="Email"
-            variant="standard"
+            variant="outlined"
             autoComplete="false"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <TextField
-            sx={textFieldStyle}
-            id="password"
-            label="Password"
-            type="password"
-            variant="standard"
-            autoComplete="false"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <FormControl fullWidth variant="outlined" sx={textFieldStyle}>
+            <InputLabel htmlFor="password">Password</InputLabel>
+            <OutlinedInput
+              id="password"
+              name="password"
+              autoComplete="false"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type={showPassword ? "text" : "password"}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              label="Password"
+            />
+          </FormControl>
 
           <Box sx={{ mt: "30px", textAlign: "center" }}>
             <Button
