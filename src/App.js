@@ -23,6 +23,7 @@ import AddUser from "./admin/AddUser";
 import AllProducts from "./admin/AllProducts";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
+import PageScroll from "./components/PageScroll";
 
 const App = () => {
   const { user } = useContext(UserContext);
@@ -46,6 +47,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <ToastContainer />
+      <PageScroll/>
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route
