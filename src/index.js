@@ -6,13 +6,16 @@ import reportWebVitals from "./reportWebVitals";
 
 import ProductContextProvider from "./context/product-context/productContext";
 import UserContextProvider from "./context/user-context/userContext";
+import ChatContextProvider from "./context/chat-context/chatContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <ProductContextProvider>
       <UserContextProvider>
-        <App />
+        <ChatContextProvider>
+          <App />
+        </ChatContextProvider>
       </UserContextProvider>
     </ProductContextProvider>
   </React.StrictMode>

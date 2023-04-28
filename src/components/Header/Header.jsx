@@ -189,6 +189,12 @@ function Header() {
                   </Link>
                 </MenuItem>
 
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Link to={`/chats`} style={linkStyle}>
+                    <Typography textAlign="center">Chats</Typography>
+                  </Link>
+                </MenuItem>
+
                 {(user?.isAdmin || user?.role === "administrator") && (
                   <MenuItem onClick={handleCloseUserMenu}>
                     <Link to="/admin/add-product" style={linkStyle}>

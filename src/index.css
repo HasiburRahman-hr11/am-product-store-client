@@ -11,3 +11,35 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.chat-content{
+  list-style: none;
+  max-height: calc(100vh - 115px);
+  padding-bottom: 85px;
+  overflow-y: scroll;
+}
+.chat-content li{
+  padding: 10px 10px;
+  width: 80%;
+  margin-bottom: 10px;
+}
+.chat-content li.left{
+  margin-right: auto;
+  background-color: #f1f1f1;
+}
+.chat-content li.right{
+  margin-left: auto;
+  background-color: #CCF7FF;
+}
+.chat-input{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  padding: 15px;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  display: flex;
+  justify-content: center;
+}

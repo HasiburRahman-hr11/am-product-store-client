@@ -24,6 +24,7 @@ import AllProducts from "./admin/AllProducts";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
 import PageScroll from "./components/PageScroll";
+import Chats from "./pages/Chats";
 
 const App = () => {
   const { user } = useContext(UserContext);
@@ -72,6 +73,11 @@ const App = () => {
           exact
           path="/profile/edit-profile/:userId"
           element={!user?._id ? <Navigate to="/" /> : <EditProfile />}
+        />
+        <Route
+          exact
+          path="/chats"
+          element={!user?._id ? <Navigate to="/" /> : <Chats />}
         />
         <Route
           exact

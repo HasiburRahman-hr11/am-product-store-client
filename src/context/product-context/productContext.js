@@ -17,7 +17,6 @@ const ProductContextProvider = ({ children }) => {
       value={{
         products: state.products,
         loadingProducts: state.loadingProducts,
-        success: state.success,
         error: state.error,
         dispatch,
       }}
