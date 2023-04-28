@@ -30,7 +30,7 @@ const AllProducts = () => {
       dispatch(deleteProductStart());
       try {
         const { data } = await axios.delete(
-          `http://localhost:8080/admin/product/delete-product/${productId}`
+          `https://am-product-store.onrender.com/admin/product/delete-product/${productId}`
         );
         if (data) {
           dispatch(deleteProductSuccess(data));
@@ -97,7 +97,7 @@ const AllProducts = () => {
                       </TableCell>
                       <TableCell>{product.title}</TableCell>
                       <TableCell align="center">${product.price}</TableCell>
-                      <TableCell align="center">{product.addedBy}</TableCell>
+                      <TableCell align="center">{product?.user?.firstName + " " + product?.user?.lastName}</TableCell>
                       <TableCell align="center">
                         {new Date(product.createdAt).toDateString()}
                       </TableCell>

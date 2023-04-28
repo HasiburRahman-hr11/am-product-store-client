@@ -44,7 +44,7 @@ const EditProduct = () => {
 
     try {
       const { data } = await axios.put(
-        `http://localhost:8080/admin/product/edit-product/${params.productId}`,
+        `https://am-product-store.onrender.com/admin/product/edit-product/${params.productId}`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -80,7 +80,7 @@ const EditProduct = () => {
     const getProduct = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:8080/product/get-product/${params.productId}`
+          `https://am-product-store.onrender.com/product/get-product/${params.productId}`
         );
         setTitle(data.title);
         setDescription(data?.description || "");
