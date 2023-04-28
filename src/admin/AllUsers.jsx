@@ -25,7 +25,7 @@ const AllUsers = () => {
 
       try {
         const { data } = await axios.delete(
-          `https://am-product-store.onrender.com/admin/user/delete-user/${userId}`
+          `http://localhost:8080/admin/user/delete-user/${userId}`
         );
         if (data) {
           if (userId === localUser._id) {
@@ -47,7 +47,7 @@ const AllUsers = () => {
     const getAllUsers = async () => {
       try {
         const { data } = await axios.get(
-          "https://am-product-store.onrender.com/admin/user/all-users"
+          "http://localhost:8080/admin/user/all-users"
         );
         setUsers(data);
         setLoading(false);

@@ -41,11 +41,12 @@ const MessageModal = ({ openModal, handleCloseModal, receiver }) => {
     setLoading(true);
     try {
       const { data } = await axios.post(
-        "https://am-product-store.onrender.com/chat/new-chat",
+        "http://localhost:8080/chat/new-chat",
         chatData
       );
       setMessage('');
       setLoading(false);
+      handleCloseModal();
     } catch (error) {
       console.log(error);
       setLoading(false);

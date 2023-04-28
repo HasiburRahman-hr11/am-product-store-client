@@ -59,7 +59,7 @@ const Signup = () => {
 
     try {
       const { data } = await axios.post(
-        "https://am-product-store.onrender.com/user/add-user",
+        "http://localhost:8080/user/add-user",
         userData
       );
       if (data?.email) {

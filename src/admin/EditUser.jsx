@@ -52,7 +52,7 @@ const EditUser = () => {
     setLoading(true);
     try {
       const { data } = await axios.put(
-        `https://am-product-store.onrender.com/admin/user/edit-user/${params.userId}`,
+        `http://localhost:8080/admin/user/edit-user/${params.userId}`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -87,7 +87,7 @@ const EditUser = () => {
     const getUser = async () => {
       try {
         const { data } = await axios.get(
-          `https://am-product-store.onrender.com/user/get-user/${params.userId}`
+          `http://localhost:8080/user/get-user/${params.userId}`
         );
         setuserData(data);
         setLoadingUser(false);

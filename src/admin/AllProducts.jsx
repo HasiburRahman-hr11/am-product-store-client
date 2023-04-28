@@ -30,7 +30,7 @@ const AllProducts = () => {
       dispatch(deleteProductStart());
       try {
         const { data } = await axios.delete(
-          `https://am-product-store.onrender.com/admin/product/delete-product/${productId}`
+          `http://localhost:8080/admin/product/delete-product/${productId}`
         );
         if (data) {
           dispatch(deleteProductSuccess(data));

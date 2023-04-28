@@ -18,7 +18,7 @@ const Profile = () => {
     const getUser = async () => {
       try {
         const { data } = await axios.get(
-          `https://am-product-store.onrender.com/user/get-user/${params.userId}`
+          `http://localhost:8080/user/get-user/${params.userId}`
         );
         setUser(data);
         setLoadingUser(false);

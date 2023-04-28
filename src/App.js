@@ -35,7 +35,7 @@ const App = () => {
       dispatch(getAllProductsStart());
       try {
         const { data } = await axios.get(
-          "https://am-product-store.onrender.com/product/all-products"
+          "http://localhost:8080/product/all-products"
         );
         dispatch(getAllProductsSuccess(data));
       } catch (error) {
