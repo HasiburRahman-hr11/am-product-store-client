@@ -32,7 +32,7 @@ const SingleProduct = () => {
     const getProduct = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:8080/product/get-product/${params.productId}`
+          `https://am-product-store.onrender.com/product/get-product/${params.productId}`
         );
         setProduct(data);
 

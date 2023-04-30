@@ -63,7 +63,7 @@ const AddUser = () => {
     setLoading(true);
     try {
       const { data } = await axios.post(
-        "http://localhost:8080/user/add-user",
+        "https://am-product-store.onrender.com/user/add-user",
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );

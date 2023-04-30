@@ -41,7 +41,7 @@ const MessageModal = ({ openModal, handleCloseModal, receiver }) => {
     setLoading(true);
     try {
       const { data } = await axios.post(
-        "http://localhost:8080/chat/new-chat",
+        "https://am-product-store.onrender.com/chat/new-chat",
         chatData
       );
       setMessage('');

@@ -68,7 +68,7 @@ const AddProduct = () => {
 
       try {
         const { data } = await axios.post(
-          "http://localhost:8080/admin/product/add-product",
+          "https://am-product-store.onrender.com/admin/product/add-product",
           formData,
           { headers: { "Content-Type": "multipart/form-data" } }
         );
